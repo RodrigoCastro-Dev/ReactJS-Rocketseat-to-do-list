@@ -1,14 +1,29 @@
+import { useForm } from "react-hook-form"
+
 interface TodoFormProps {
-  setCount: React.Dispatch<React.SetStateAction<number>>
+  setContent: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-export function TodoForm({ setCount }: TodoFormProps) {
+export function TodoForm({ setContent }: TodoFormProps) {
+  const { register, handleSubmit } = useForm<{ task: string }>({
+    shouldUseNativeValidation: true,
+  })
+  const onSubmit = async (data: { task: string }) => {
+    setContent((prevContent) => [...prevContent, data.task])
+  }
+
   return (
     <div className="card">
-      <input type="text" />
-      <button onClick={() => setCount((count) => count + 1)}>
-        Criar
-      </button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          {...register("task", {
+            required: "Please enter your task.",
+          })}
+        />
+        <button>
+          Criar
+        </button>
+      </form>
     </div>
   )
 }

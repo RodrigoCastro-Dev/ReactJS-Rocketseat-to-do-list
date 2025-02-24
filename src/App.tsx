@@ -5,13 +5,13 @@ import { TodoForm } from './components/TodoForm'
 import { TaskList } from './components/TaskList'
 
 export function App() {
-  const [count, setCount] = useState(0)
+  const [content, setContent] = useState<string[]>([])
 
   return (
     <>
       <Header />
-      <TodoForm setCount={setCount}/>
-      <TaskList count={count}/>
+      <TodoForm setContent={setContent}/>
+      <TaskList content={content}/>
     </>
   )
 }

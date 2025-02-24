@@ -1,17 +1,29 @@
 import clipboardLogo from '../../assets/clipboard.svg'
 
-export function TaskList({ count }: { count: number }) {
+export function TaskList({ content }: { content: string[] }) {
   return (
     <div>
-      <span>Tarefas Criadas ({count})</span>
-      <span>Concluidas ({count})</span>
-      <hr></hr>
+      <span>Tarefas Criadas ({content.length})</span>
+      <span>Concluídas ({content.length})</span>
+      <hr />
 
-      <i> <img src={clipboardLogo} className="logo"></img> </i>
-      <p>Você ainda não tem tarefas cadastradas</p>
-      <p className="read-the-docs">
-        Crie tarefas e organize seus itens a fazer
-      </p>
+      {content.length > 0 ? (
+        <div>
+          {content.map((task) => (
+            <div key={task}>{task}</div>
+          ))}
+        </div>
+      ) : (
+        <>
+          <i>
+            <img src={clipboardLogo} className="logo" alt="Clipboard" />
+          </i>
+          <p>Você ainda não tem tarefas cadastradas</p>
+          <p className="read-the-docs">
+            Crie tarefas e organize seus itens a fazer
+          </p>
+        </>
+      )}
     </div>
-  )
+  );
 }
